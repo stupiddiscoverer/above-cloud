@@ -1,0 +1,2 @@
+C:\Users\children\Desktop\c语言\ConsoleApplication1\Debug\ConsoleApplication1.exe
+C:\Users\children\Desktop\c语言\ConsoleApplication1\Debug\ConsoleApplication1.pdb
