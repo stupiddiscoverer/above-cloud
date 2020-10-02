@@ -14,7 +14,7 @@ struct hero {
 };
 struct fetnum {
 	char fetter[14] = "";
-	char n1='0', n2='0', n3='0', n4='0';
+	char n1=0, n2=0, n3=0, n4=0;
 };
 struct fetCount {
 	char fetter[14] = "";
@@ -24,18 +24,23 @@ struct fetCount {
 void getData(hero a[],fetnum b[]);
 hero he[58];
 fetnum fn[26];
-void C(int n, hero combination[], int i,int j);
-void D(hero com[],int j);
+void C(int n, int i,int j);
+void D(int j);
 bool compareStr(char a[], char b[]);
-void writeTxt(hero combination[], fetCount nFetter[], int fets, int j, int x);
+void writeTxt(int fets, int j, int x);
+
+hero combination[9];
+fetCount nFetter[24];
 
 int main()
 {
 	getData(he, fn);
 	printf("got data(^_^)\n");
-	hero combination[9];
+	for (int x = 0; x < 26; x++) {
+		printf("%s: %d, %d, %d, %d\n",fn[x].fetter, fn[x].n1,fn[x].n2,fn[x].n3,fn[x].n4);
+	}
 	for(int i=7;i<10;i++)
-		C(i, combination, 0,i);
+		C(i, 0,i);
 	return 0;
 }
 bool compareStr(char a[], char b[]) {
@@ -46,19 +51,24 @@ bool compareStr(char a[], char b[]) {
 			return false;
 	return true;
 }
-void C(int n, hero combination[], int i,int j) {
+void C(int n, int i, int j) {
 	if (n < 1) {
-		D(combination,j);
+		D(j);
 		return;
 	}
 	while (i < 58) {
 		combination[j - n] = he[i];
 		i++;
-		C(n - 1, combination, i,j);
+		C(n - 1, i,j);
+		hero jiliguala;
+		combination[j - n] = jiliguala;
 	}
 }
-void D(hero combination[],int j) {
-	fetCount nFetter[24];
+void D(int j) {
+	fetCount guala;
+	for (int x = 0; x < 24; x++) {
+		nFetter[x] = guala;
+	}
 	int fets = 0, sfet = 0;
 	//统计nFetter
 	for (int x = 0; x < j; x++) {  //9个英雄
@@ -131,7 +141,7 @@ void D(hero combination[],int j) {
 		}
 	}
 	if (fets == sfet)
-		writeTxt(combination, nFetter, fets, j, -1);
+		writeTxt(fets, j, -1);
 	if (fets == sfet + 1) {
 		int godChoose = -1;
 		for (int x = 0; nFetter[x].count && godChoose < 0; x++) {
@@ -149,15 +159,17 @@ void D(hero combination[],int j) {
 						printf(nFetter[x].fetter);
 						godChoose = x;
 						printf("--天选\n");
-					}					
+					}
+					else
+						return;
 					break;
 				}
 			}
 		}
-		writeTxt(combination, nFetter, fets, j, godChoose);
+		writeTxt(fets, j, godChoose);
 	}
 }
-void writeTxt(hero combination[], fetCount nFetter[], int fets, int j, int godChoose) {
+void writeTxt(int fets, int j, int godChoose) {
 	printf("***%d\n", godChoose);
 	FILE* fp;
 	fopen_s(&fp, "c:/users/children/desktop/God789.txt", "a");
